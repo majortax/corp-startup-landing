@@ -218,45 +218,6 @@
   .growth-highlight .msg p{color:#c2cee6;font-size:14px;}
   .growth-highlight .btn{flex:none;}
 
-  /* ===== Status ticker ===== */
-  .status{background:transparent;color:#fff;}
-  .status .section-head h2{color:var(--navy-900);}
-  .status .section-head p{color:#5b6b85;}
-  .status-table{
-    background:var(--navy-900);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);
-    overflow:hidden;--status-row-h:52px;
-  }
-  .status-row{
-    display:grid;grid-template-columns:110px 1.4fr 1fr 1.4fr;gap:12px;padding:0 22px;font-size:14px;
-    border-bottom:1px solid rgba(255,255,255,.08);align-items:center;
-    height:var(--status-row-h, 52px);box-sizing:border-box;
-  }
-  .status-row.head{background:rgba(255,255,255,.06);font-weight:700;color:#cfd9ee;font-size:13px;}
-  .status-row:last-child{border-bottom:none;}
-  .status-row span.company{font-weight:700;}
-  .status-viewport{
-    height:calc(var(--status-row-h, 52px) * 5);overflow:hidden;position:relative;
-  }
-  .status-viewport::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:36px;pointer-events:none;
-    background:linear-gradient(to bottom, transparent, var(--navy-900));
-  }
-  .status-scroll{animation:statusScroll 22s linear infinite;}
-  .status-viewport:hover .status-scroll{animation-play-state:paused;}
-  @keyframes statusScroll{
-    from{transform:translateY(0);}
-    to{transform:translateY(-50%);}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .status-scroll{animation:none;}
-    .status-viewport{overflow-y:auto;}
-  }
-  .badge{
-    display:inline-block;padding:3px 10px;border-radius:999px;background:rgba(255,122,61,.18);
-    color:#ffb08a;font-size:12px;font-weight:700;
-  }
-  .status-note{text-align:center;color:#8fa0c4;font-size:13px;margin-top:18px;}
-
   /* ===== Process ===== */
   .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;}
   .process-grid::before{
@@ -350,9 +311,6 @@
     .process-grid::before{display:none;}
     .contact-grid{grid-template-columns:1fr;}
     .form-row{grid-template-columns:1fr;}
-    .status-table{--status-row-h:46px;}
-    .status-row{grid-template-columns:80px 1fr 1fr;font-size:12.5px;padding:0 14px;}
-    .status-row span.region{display:none;}
     .partner-list{grid-template-columns:1fr;}
   }
   @media (max-width: 600px){
@@ -374,7 +332,6 @@
       <a href="#benefits">무료혜택</a>
       <a href="#services">특화서비스</a>
       <a href="#growth">성장관리</a>
-      <a href="#status">신청현황</a>
       <a href="#process">진행절차</a>
       <a href="#team">전문가</a>
       <a href="#contact">상담신청</a>
@@ -526,25 +483,6 @@
       </div>
       <a href="#contact" class="btn btn-accent">지금 상담 신청</a>
     </div>
-  </div>
-</section>
-
-<section class="status" id="status">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow" style="background:rgba(255,255,255,.1);color:#ffb08a;">APPLICATION</span>
-      <h2 class="section-title">실시간 신청 현황</h2>
-      <p class="section-sub">담당자 접수 기준 실시간 신청 현황입니다.</p>
-    </div>
-    <div class="status-table">
-      <div class="status-row head">
-        <span>접수일</span><span>업체명</span><span class="region">업종</span><span>지역</span>
-      </div>
-      <div class="status-viewport" id="statusViewport">
-        <div class="status-scroll" id="statusBody"></div>
-      </div>
-    </div>
-    <p class="status-note">※ 상호명은 개인정보 보호를 위해 일부 마스킹 처리되어 표시됩니다.</p>
   </div>
 </section>
 
@@ -701,51 +639,6 @@
     mainNav.style.borderBottom = '1px solid var(--border)';
     mainNav.style.gap = '14px';
   });
-
-  // Real-time application status (synthetic demo data, masked names)
-  const regions = ['서울시 종로구','경기도 평택시','울산시 울주군','서울시 구로구','경기도 고양시','경기도 용인시','경기도 안산시','인천시 남동구','부산시 해운대구','대전시 유성구'];
-  const industries = ['IT/기술','수출/유통','유통/물류','디자인','서비스','도소매','제조','미정'];
-  const companies = ['㈜현O','㈜OOO바이오','㈜OO약품','㈜OO기업','㈜삼O','㈜OO디자인','㈜OO필름','㈜OOOO코리아','㈜대O','㈜OO테크'];
-
-  function pad(n){ return n.toString().padStart(2,'0'); }
-  function todayStr(){
-    const d = new Date();
-    return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())}`;
-  }
-
-  const statusBody = document.getElementById('statusBody');
-  const statusViewport = document.getElementById('statusViewport');
-  const ROW_COUNT = 10;
-  const rows = [];
-  for(let i=0;i<ROW_COUNT;i++){
-    rows.push({
-      date: todayStr(),
-      company: companies[i % companies.length],
-      industry: industries[i % industries.length],
-      region: regions[i % regions.length]
-    });
-  }
-  const rowsHtml = rows.map(r => `
-    <div class="status-row">
-      <span>${r.date}</span>
-      <span class="company">${r.company}</span>
-      <span class="region"><span class="badge">${r.industry}</span></span>
-      <span>${r.region}</span>
-    </div>
-  `).join('');
-  // Render the list twice back-to-back so the upward scroll animation
-  // (translateY 0 -> -50%) loops seamlessly.
-  statusBody.innerHTML = rowsHtml + rowsHtml;
-
-  // Match the animation speed to how tall one full set of rows actually is,
-  // so the scroll pace stays consistent regardless of row height/screen size.
-  function tuneStatusScrollSpeed(){
-    const setHeight = statusBody.scrollHeight / 2;
-    const pxPerSecond = 26;
-    statusBody.style.animationDuration = `${Math.max(setHeight / pxPerSecond, 8)}s`;
-  }
-  tuneStatusScrollSpeed();
-  window.addEventListener('resize', tuneStatusScrollSpeed);
 
   // Contact form (demo — no backend)
   const form = document.getElementById('contactForm');
