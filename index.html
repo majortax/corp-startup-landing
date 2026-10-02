@@ -200,26 +200,12 @@
 
   .growth-checklist{
     background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-    padding:32px 34px;margin-bottom:24px;box-shadow:var(--shadow);
+    padding:32px 34px;box-shadow:var(--shadow);
   }
   .growth-checklist h3{font-size:16px;margin-bottom:20px;}
   .check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 28px;}
   .check-item{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--text);}
   .check-item svg{flex:none;color:var(--blue-600);}
-
-  .growth-highlight{
-    display:flex;align-items:center;gap:32px;border-radius:20px;padding:36px 38px;
-    background:var(--navy-900);color:#fff;flex-wrap:wrap;
-  }
-  .growth-highlight .stat{
-    font-size:clamp(28px,3.6vw,38px);font-weight:800;line-height:1.2;color:#ffb08a;flex:none;
-    border-right:1px solid rgba(255,255,255,.18);padding-right:32px;
-  }
-  .growth-highlight .stat small{display:block;font-size:13px;font-weight:600;color:#b9c6e0;margin-top:4px;}
-  .growth-highlight .msg{flex:1;min-width:240px;}
-  .growth-highlight .msg h3{color:#fff;font-size:18px;margin-bottom:8px;}
-  .growth-highlight .msg p{color:#c2cee6;font-size:14px;}
-  .growth-highlight .btn{flex:none;}
 
   /* ===== Process ===== */
   .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;}
@@ -309,9 +295,6 @@
     .timeline-stage{border-left:none !important;border-top:1px solid var(--border);}
     .timeline-stage:first-child{border-top:none;}
     .check-grid{grid-template-columns:1fr;}
-    .growth-highlight{flex-direction:column;align-items:flex-start;text-align:left;}
-    .growth-highlight .stat{border-right:none;padding-right:0;}
-    .growth-highlight .btn{width:100%;}
     .process-grid{grid-template-columns:repeat(2,1fr);row-gap:36px;}
     .process-grid::before{display:none;}
     .contact-grid{grid-template-columns:1fr;}
@@ -484,14 +467,6 @@
         <div class="check-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>양도·상속·증여 재산제세</div>
         <div class="check-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>가지급금·법인전환 정리</div>
       </div>
-    </div>
-    <div class="growth-highlight">
-      <div class="stat">최대 5년<small>창업중소기업 세액감면 한도</small></div>
-      <div class="msg">
-        <h3>초기에만 챙길 수 있는 세제 혜택, 시점이 지나면 되돌릴 수 없습니다</h3>
-        <p>법인 설립과 동시에 세무 전략을 함께 설계해야 감면·공제를 놓치지 않습니다.</p>
-      </div>
-      <a href="#contact" class="btn btn-accent">지금 상담 신청</a>
     </div>
   </div>
 </section>
